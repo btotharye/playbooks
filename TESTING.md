@@ -3,9 +3,10 @@
 ## Overview
 
 Playbooks includes a comprehensive test suite with:
+
 - **19+ test cases** covering library and CLI functionality
 - **80% code coverage requirement**
-- **Multiple Python versions** (3.11, 3.12)
+- **Python versions** (3.12)
 - **Pre-commit hooks** for automated quality checks
 
 ## Running Tests Locally
@@ -80,14 +81,17 @@ TestCLI (9 tests):
 ### GitHub Actions (test.yml)
 
 Automatically runs on:
+
 - Push to `main` or `develop`
 - Pull requests to `main` or `develop`
 
 **Test Matrix:**
-- Python 3.11, 3.12
+
+- Python 3.12
 - Ubuntu latest
 
 **Jobs:**
+
 1. **Tests** - pytest with coverage
 2. **Linting** - ruff checks and formatting
 3. **Type Checking** - mypy validation
@@ -106,6 +110,7 @@ pre-commit run --all-files
 ```
 
 **Hooks:**
+
 - ruff: Linting and formatting
 - trailing-whitespace: Remove trailing spaces
 - end-of-file-fixer: Fix file endings
@@ -122,12 +127,12 @@ from playbooks import PromptLibrary
 
 class TestNewFeature:
     """Test new feature."""
-    
+
     def test_feature_behavior(self):
         """Test expected behavior."""
         library = PromptLibrary()
         result = library.some_method()
-        
+
         assert result is not None
         assert isinstance(result, list)
 ```
@@ -145,7 +150,7 @@ def test_new_prompt_loaded(self):
     """Test new prompt is loaded and accessible."""
     library = PromptLibrary()
     prompt = library.get_prompt("category", "new_prompt")
-    
+
     assert prompt is not None
     assert prompt.name == "Expected Name"
     assert len(prompt.inputs) > 0
@@ -157,6 +162,7 @@ def test_new_prompt_loaded(self):
 Minimum coverage: **80%**
 
 When adding new code:
+
 1. Write tests for new functionality
 2. Ensure coverage doesn't drop below 80%
 3. Check coverage report: `htmlcov/index.html`
@@ -240,11 +246,13 @@ time uv run pytest tests/
 ## CI/CD Integration
 
 Tests automatically run on:
+
 - Every push to `main`
 - Every pull request
 - Can be triggered manually
 
 Results visible in:
+
 - GitHub Actions tab
 - PR checks
 - Commit status
@@ -252,10 +260,11 @@ Results visible in:
 ## Metrics
 
 Current test suite:
+
 - **19+ test cases**
 - **Coverage: 80%+**
 - **Execution time: <2s**
-- **Python versions: 3.11, 3.12**
+- **Python versions: 3.12**
 
 ## Further Reading
 

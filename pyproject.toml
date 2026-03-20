@@ -7,7 +7,7 @@ name = "playbooks"
 dynamic = ["version"]
 description = "Battle-tested prompts for infrastructure agents. Like Ansible playbooks, but for AI."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 license = { text = "MIT" }
 authors = [
     { name = "Brian Hopkins", email = "btotharye@gmail.com" },
@@ -30,7 +30,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: System :: Systems Administration",
     "Topic :: Software Development :: Libraries :: Application Frameworks",
@@ -72,14 +71,14 @@ omit = ["*/tests/*"]
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "N", "UP", "B"]
 ignore = ["E501"]
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true

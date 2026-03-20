@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Python 3.11+
+- Python 3.12+
 - `uv` (fast Python package installer)
   ```bash
   curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -11,12 +11,14 @@
 ## Quick Start
 
 ### 1. Clone Repository
+
 ```bash
 git clone https://github.com/btotharye/playbooks.git
 cd playbooks
 ```
 
 ### 2. Install with uv
+
 ```bash
 # Install package + dependencies
 make dev
@@ -26,6 +28,7 @@ uv pip install -e ".[dev]"
 ```
 
 ### 3. Run CLI
+
 ```bash
 # List all prompts
 playbooks list
@@ -40,12 +43,14 @@ playbooks search "cost"
 ## Development Workflow
 
 ### Run Tests
+
 ```bash
 make test
 # Or: uv run pytest tests/ -v
 ```
 
 ### Lint & Format
+
 ```bash
 make lint      # Check code quality
 make format    # Auto-format code
@@ -61,6 +66,7 @@ make format    # Auto-format code
 6. Git commit + push
 
 ### Available Makefile Commands
+
 ```bash
 make help      # Show all commands
 make install   # Install dependencies
@@ -75,12 +81,14 @@ make cli       # Run the CLI
 ## Using uv Directly
 
 ### Install dependencies
+
 ```bash
 uv pip install -e .
 uv pip install -e ".[dev]"  # with dev deps
 ```
 
 ### Run commands
+
 ```bash
 uv run playbooks list
 uv run pytest tests/
@@ -88,6 +96,7 @@ uv run ruff check src/
 ```
 
 ### Python shell
+
 ```bash
 uv run python
 # Then in Python:
@@ -115,25 +124,31 @@ playbooks/
 ├── examples/            # Usage examples
 ├── Makefile             # Quick commands
 ├── pyproject.toml       # Dependencies
-└── .python-version      # Python 3.11
+└── .python-version      # Python 3.12
 ```
 
 ## Troubleshooting
 
 ### `command not found: uv`
+
 Install uv:
+
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 ### `ImportError: No module named 'playbooks'`
+
 Install in editable mode:
+
 ```bash
 uv pip install -e .
 ```
 
 ### Tests fail
+
 Make sure dev dependencies are installed:
+
 ```bash
 make dev
 ```

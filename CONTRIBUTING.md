@@ -92,4 +92,4 @@ Quality scores:
 
 ## Questions?
 
-Open a discussion: github.com/btotharye/syntaxctl/discussions
+Open a discussion: github.com/btotharye/playbooks/discussions

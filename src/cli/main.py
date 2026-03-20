@@ -1,4 +1,4 @@
-"""CLI for syntaxctl prompt management."""
+"""CLI for playbooks prompt management."""
 
 import click
 from rich.console import Console

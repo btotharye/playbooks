@@ -54,14 +54,14 @@ dev = [
 ]
 
 [project.scripts]
-syntaxctl = "syntaxctl.cli.main:main"
+playbooks = "playbooks.cli.main:main"
 
 [tool.hatch.version]
-path = "src/syntaxctl/__init__.py"
+path = "src/playbooks/__init__.py"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--cov=src/syntaxctl --cov-report=term-missing -v"
+addopts = "--cov=src/playbooks --cov-report=term-missing -v"
 
 [tool.coverage.run]
 omit = ["*/tests/*"]

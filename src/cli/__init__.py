@@ -1,1 +1,1 @@
-"""CLI module for syntaxctl."""
+"""CLI module for playbooks."""

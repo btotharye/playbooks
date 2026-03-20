@@ -21,7 +21,7 @@ uv pip install playbooks
 
 ### Use with Claude Directly
 
-1. Browse prompts: `github.com/btotharye/syntaxctl/tree/main/prompts`
+1. Browse prompts: `github.com/btotharye/playbooks/tree/main/prompts`
 2. Copy the YAML prompt you need
 3. Paste into Claude with your context
 4. Get structured guidance in 30 seconds
@@ -116,10 +116,10 @@ playbooks version
 ## Architecture
 
 ```
-syntaxctl/
+playbooks/
 ├── prompts/          (YAML prompt templates)
 ├── src/
-│   ├── syntaxctl/    (Python library)
+│   ├── playbooks/    (Python library)
 │   └── cli/          (Command-line tool)
 ├── examples/         (Usage examples)
 └── tests/            (Test suite)
@@ -128,7 +128,7 @@ syntaxctl/
 ## Example: Incident Response
 
 ```python
-from syntaxctl import PromptLibrary
+from playbooks import PromptLibrary
 import anthropic
 
 library = PromptLibrary()
@@ -199,7 +199,7 @@ Lower-quality prompts are marked `🚧` in listings.
 ### For SREs
 Quick diagnostics when issues hit at 3am:
 ```bash
-syntaxctl show incident-response-error-rate
+playbooks show incident-response-error-rate
 # Copy prompt → Paste into Claude → Get diagnosis
 ```
 

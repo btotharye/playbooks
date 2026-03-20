@@ -25,10 +25,10 @@ jobs:
       uses: astral-sh/setup-uv@v2
     
     - name: Install dependencies
-      run: uv pip install -e ".[dev]"
+      run: uv pip install --system -e ".[dev]"
     
     - name: Run tests
-      run: uv run pytest tests/ -v --cov=src/playbooks --cov-report=xml --cov-report=term-missing
+      run: pytest tests/ -v --cov=src/playbooks --cov-report=xml --cov-report=term-missing
     
     - name: Upload coverage
       uses: codecov/codecov-action@v3
@@ -53,18 +53,18 @@ jobs:
       uses: astral-sh/setup-uv@v2
     
     - name: Install dependencies
-      run: uv pip install -e ".[dev]"
+      run: uv pip install --system -e ".[dev]"
     
     - name: Lint with ruff
       run: |
-        uv run ruff check src/ tests/
-        uv run ruff format --check src/ tests/
+        ruff check src/ tests/
+        ruff format --check src/ tests/
     
     - name: Type check with mypy
-      run: uv run mypy src/playbooks
+      run: mypy src/playbooks
     
     - name: Check imports
-      run: uv run ruff check --select I src/ tests/
+      run: ruff check --select I src/ tests/
 
   security:
     runs-on: ubuntu-latest
@@ -81,10 +81,10 @@ jobs:
       uses: astral-sh/setup-uv@v2
     
     - name: Install dependencies
-      run: uv pip install bandit safety
+      run: uv pip install --system bandit safety
     
     - name: Run bandit
-      run: uv run bandit -r src/ -ll || true
+      run: bandit -r src/ -ll || true
     
     - name: Check dependencies
-      run: uv run safety check --json || true
+      run: safety check --json || true

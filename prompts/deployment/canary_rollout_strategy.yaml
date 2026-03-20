@@ -1,0 +1,135 @@
+metadata:
+  id: "deployment-canary-001"
+  name: "Canary Rollout Strategy Decision"
+  version: "1.0.0"
+  author: "Brian Hopkins <btotharye@gmail.com>"
+  category: "deployment"
+  tags: ["kubernetes", "canary", "blue-green", "risk", "safety"]
+  description: "Decides the safest canary rollout strategy based on service criticality and risk level"
+  created: "2026-03-20"
+  quality_score: 0.95
+  production_tested: true
+  test_count: 50
+
+inputs:
+  - name: "service_name"
+    type: "string"
+    description: "Name of the service being deployed"
+    example: "api-server"
+  
+  - name: "risk_level"
+    type: "string"
+    enum: ["low", "medium", "high", "critical"]
+    description: "How critical is this service to operations?"
+    example: "critical"
+  
+  - name: "deployment_frequency"
+    type: "integer"
+    description: "How many times per week does this service deploy?"
+    example: 5
+  
+  - name: "current_error_budget"
+    type: "float"
+    description: "Current error budget percentage (0-100)"
+    example: 45
+  
+  - name: "slo"
+    type: "float"
+    description: "Service SLO target (e.g., 99.95)"
+    example: 99.95
+
+outputs:
+  - name: "strategy"
+    type: "string"
+    enum: ["canary", "blue_green", "rolling"]
+    description: "Recommended rollout strategy"
+  
+  - name: "canary_percentage"
+    type: "float"
+    description: "Starting percentage of traffic for canary"
+  
+  - name: "canary_duration_minutes"
+    type: "integer"
+    description: "How long to keep canary running before next step"
+  
+  - name: "rollout_schedule"
+    type: "array"
+    description: "Percentages over time: [canary%, step2%, step3%, ...]"
+  
+  - name: "monitoring_metrics"
+    type: "array"
+    description: "Metrics to watch: ['error_rate', 'latency', 'memory']"
+  
+  - name: "rollback_triggers"
+    type: "array"
+    description: "Automatic rollback conditions"
+  
+  - name: "reasoning"
+    type: "string"
+    description: "Why this strategy is safest for this service"
+
+prompt_text: |
+  You are an expert in safe infrastructure deployments. Your job is to decide 
+  the optimal canary rollout strategy for a production service deployment.
+  
+  Consider these factors carefully:
+  - Service criticality (risk_level) - how important is this service?
+  - How often it deploys (frequent deploys are safer to move fast)
+  - Current error budget (low budget = more conservative)
+  - SLO target (higher SLO = more conservative)
+  
+  Service Details:
+  - Name: {service_name}
+  - Risk Level: {risk_level}
+  - Deployment Frequency: {deployment_frequency} times/week
+  - Current Error Budget: {current_error_budget}%
+  - Service SLO: {slo}%
+  
+  Choose a strategy:
+  1. "canary" - Start with small percentage, ramp up gradually
+  2. "blue_green" - Switch all traffic at once after validating
+  3. "rolling" - Update instances one by one
+  
+  Respond with ONLY valid JSON (no markdown, no extra text):
+  {{
+    "strategy": "canary|blue_green|rolling",
+    "canary_percentage": 0-100,
+    "canary_duration_minutes": number,
+    "rollout_schedule": [10, 25, 50, 100],
+    "monitoring_metrics": ["error_rate", "p99_latency", "memory_usage"],
+    "rollback_triggers": ["error_rate > 5%", "p99_latency > 2x baseline"],
+    "reasoning": "explanation of choice"
+  }}
+  
+  Be conservative. Err on side of caution. Safety first.
+
+examples:
+  - input:
+      service_name: "payment-processor"
+      risk_level: "critical"
+      deployment_frequency: 3
+      current_error_budget: 15
+      slo: 99.99
+    output:
+      strategy: "canary"
+      canary_percentage: 1
+      canary_duration_minutes: 30
+      rollout_schedule: [1, 2, 5, 10, 25, 50, 100]
+      monitoring_metrics: ["error_rate", "p99_latency", "transaction_success_rate"]
+      rollback_triggers: ["error_rate > 1%", "p99_latency > 1.5x baseline", "transaction_failures > 100"]
+      reasoning: "Critical payment service with low error budget requires extremely conservative rollout"
+  
+  - input:
+      service_name: "admin-dashboard"
+      risk_level: "low"
+      deployment_frequency: 1
+      current_error_budget: 80
+      slo: 99.0
+    output:
+      strategy: "rolling"
+      canary_percentage: 50
+      canary_duration_minutes: 5
+      rollout_schedule: [50, 100]
+      monitoring_metrics: ["error_rate", "latency"]
+      rollback_triggers: ["error_rate > 10%"]
+      reasoning: "Low-criticality service with high error budget can use fast rolling updates"

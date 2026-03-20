@@ -1,0 +1,81 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "playbooks"
+dynamic = ["version"]
+description = "Battle-tested prompts for infrastructure agents. kubectl for AI."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Brian Hopkins", email = "btotharye@gmail.com" },
+]
+keywords = [
+    "ai",
+    "agents",
+    "prompts",
+    "infrastructure",
+    "devops",
+    "kubernetes",
+    "deployment",
+    "cost-optimization",
+    "incident-response",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
+dependencies = [
+    "click>=8.1.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0.0",
+    "rich>=13.0.0",
+    "python-dotenv>=1.0.0",
+    "anthropic>=0.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.1.0",
+    "mypy>=1.5.0",
+    "pre-commit>=3.4.0",
+]
+
+[project.scripts]
+syntaxctl = "syntaxctl.cli.main:main"
+
+[tool.hatch.version]
+path = "src/syntaxctl/__init__.py"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=src/syntaxctl --cov-report=term-missing -v"
+
+[tool.coverage.run]
+omit = ["*/tests/*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

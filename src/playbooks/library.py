@@ -126,6 +126,5 @@ class PromptLibrary:
         """
         keyword = keyword.lower()
         return [
-            p for p in self.prompts.values()
-            if keyword in p.name.lower() or keyword in p.id.lower()
+            p for p in self.prompts.values() if keyword in p.name.lower() or keyword in p.id.lower()
         ]

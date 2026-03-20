@@ -123,6 +123,7 @@ def search(keyword):
 def version():
     """Show version."""
     from playbooks import __version__
+
     console.print(f"[bold]Playbooks[/bold] v{__version__}")
 
 

@@ -57,6 +57,9 @@ dev = [
 [project.scripts]
 playbooks = "playbooks.cli.main:main"
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/playbooks"]
+
 [tool.hatch.version]
 path = "src/playbooks/__init__.py"
 

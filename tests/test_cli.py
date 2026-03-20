@@ -28,20 +28,20 @@ class TestCLI:
     
     def test_cli_list(self, runner):
         """Test list command."""
-        result = runner.invoke(main, ["list"])
+        result = runner.invoke(main, ["list-prompts"])
         assert result.exit_code == 0
         assert "Available Prompts" in result.output
         assert "deployment" in result.output.lower()
     
     def test_cli_list_by_category(self, runner):
         """Test list command with category filter."""
-        result = runner.invoke(main, ["list", "--category", "deployment"])
+        result = runner.invoke(main, ["list-prompts", "--category", "deployment"])
         assert result.exit_code == 0
         assert "deployment" in result.output.lower()
     
     def test_cli_list_nonexistent_category(self, runner):
         """Test list with non-existent category."""
-        result = runner.invoke(main, ["list", "--category", "nonexistent"])
+        result = runner.invoke(main, ["list-prompts", "--category", "nonexistent"])
         assert result.exit_code == 0
         assert "No prompts found" in result.output
     

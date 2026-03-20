@@ -3,11 +3,6 @@
 import click
 from rich.console import Console
 from rich.table import Table
-from pathlib import Path
-import sys
-
-# Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from playbooks.library import PromptLibrary
 
@@ -31,7 +26,7 @@ def main():
 
 @main.command()
 @click.option("--category", "-c", help="Filter by category")
-def list(category):
+def list_prompts(category):
     """List all available prompts."""
     library = PromptLibrary()
     
